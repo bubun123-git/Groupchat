@@ -36,3 +36,14 @@ function displayMessage(msg) {
     messageDiv.innerHTML = `<strong>${msg.username}:</strong> ${msg.text}`;
     document.getElementById("messages").appendChild(messageDiv);
 }
+
+// Clear chat function
+function clearChat() {
+    document.getElementById("messages").innerHTML = ""; // Clear UI
+    socket.emit("clearChat"); // Notify server to delete messages
+}
+
+// Listen for clearChat event from server
+socket.on("chatCleared", () => {
+    document.getElementById("messages").innerHTML = "";
+});
